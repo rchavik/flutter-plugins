@@ -41,6 +41,8 @@ public class AndroidIntentPlugin implements MethodCallHandler {
         return Intent.ACTION_VIEW;
       case "action_voice":
         return Intent.ACTION_VOICE_COMMAND;
+      case "install_package":
+        return Intent.ACTION_INSTALL_PACKAGE;
       case "settings":
         return Settings.ACTION_SETTINGS;
       default:
@@ -138,6 +140,10 @@ public class AndroidIntentPlugin implements MethodCallHandler {
         Log.i(TAG, "Cannot resolve explicit intent - ignoring package");
         intent.setPackage(null);
       }
+    }
+
+    if (action.equals("android.intent.action.INSTALL_PACKAGE")) {
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     }
 
     Log.i(TAG, "Sending intent " + intent);

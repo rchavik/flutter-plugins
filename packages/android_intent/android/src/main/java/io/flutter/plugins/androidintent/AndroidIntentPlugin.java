@@ -128,8 +128,18 @@ public class AndroidIntentPlugin implements MethodCallHandler {
     if (call.argument("category") != null) {
       intent.addCategory((String) call.argument("category"));
     }
-    if (call.argument("data") != null) {
-      intent.setData(Uri.parse((String) call.argument("data")));
+    if (call.argument("data") != null && call.argument("type") != null) {
+      intent.setDataAndType(
+        Uri.parse((String) call.argument("data")),
+        (String) call.argument("type")
+      );
+    } else {
+      if (call.argument("data") != null) {
+        intent.setData(Uri.parse((String) call.argument("data")));
+      }
+      if (call.argument("type") != null) {
+        intent.setType((String) call.argument("type"));
+      }
     }
     if (call.argument("arguments") != null) {
       intent.putExtras(convertArguments((Map) call.argument("arguments")));

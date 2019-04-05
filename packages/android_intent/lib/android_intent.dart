@@ -17,12 +17,14 @@ class AndroidIntent {
   /// [category] refers to the category of the intent, can be null.
   /// [data] refers to the string format of the URI that will be passed to
   /// intent.
+  /// [type] type
   /// [arguments] is the map that will be converted into an extras bundle and
   /// passed to the intent.
   const AndroidIntent({
     @required this.action,
     this.category,
     this.data,
+    this.type,
     this.arguments,
     this.package,
     Platform platform,
@@ -33,6 +35,7 @@ class AndroidIntent {
   final String action;
   final String category;
   final String data;
+  final String type;
   final Map<String, dynamic> arguments;
   final String package;
   final MethodChannel _channel;
@@ -50,6 +53,9 @@ class AndroidIntent {
     }
     if (data != null) {
       args['data'] = data;
+    }
+    if (type != null) {
+      args['type'] = type;
     }
     if (arguments != null) {
       args['arguments'] = arguments;
